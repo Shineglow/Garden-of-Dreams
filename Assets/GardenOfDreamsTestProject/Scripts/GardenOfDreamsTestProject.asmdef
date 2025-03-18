@@ -1,0 +1,18 @@
+{
+    "name": "GardenOfDreamsTestProject",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9aa85c2ada2ffb6408b8b284c3b8c04c",
+        "GUID:4ff06f17ce0c4744eb43ec88900b2db4",
+        "GUID:93eb6a246cfd1aa4ea02d2143e3c18e0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
