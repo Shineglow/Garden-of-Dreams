@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 4957356990737848367}
   - component: {fileID: 375987273114528943}
   m_Layer: 0
-  m_Name: Gameplay_UI
+  m_Name: Building_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -735,9 +735,8 @@ MonoBehaviour:
   - {fileID: 6911664491924403512}
   - {fileID: 7863873627656270555}
   - {fileID: 767933035120869006}
-  controlButtons:
-  - {fileID: 6298742528787335050}
-  - {fileID: 8714744719144257343}
+  buildButton: {fileID: 6298742528787335050}
+  destroyButton: {fileID: 8714744719144257343}
 --- !u!1 &4743603481526566044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1264,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180, y: -137.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8870418784882080860

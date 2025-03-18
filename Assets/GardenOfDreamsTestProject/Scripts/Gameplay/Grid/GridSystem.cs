@@ -1,4 +1,5 @@
 using GardenOfDreamsTestProject.Scripts.Configuration;
+using GardenOfDreamsTestProject.Scripts.Configuration.Grid;
 using GardenOfDreamsTestProject.Scripts.Serialization;
 using UnityEngine;
 
@@ -11,10 +12,10 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
         public float UnitsPerCell { get; private set; }
         public Vector2Int GridSize { get; private set; }
 
-        public void SetConfigurationData(IGreedConfiguration greedConfiguration)
+        public void SetConfigurationData(IGridConfiguration gridConfiguration)
         {
-            GridSize = greedConfiguration.Size;
-            UnitsPerCell = greedConfiguration.UnitsPerCell;
+            GridSize = gridConfiguration.Size;
+            UnitsPerCell = gridConfiguration.UnitsPerCell;
             _grid = new IGridViewObject[GridSize.x, GridSize.y];
         }
         

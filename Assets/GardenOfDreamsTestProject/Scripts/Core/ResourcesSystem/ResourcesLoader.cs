@@ -38,5 +38,16 @@ namespace GardenOfDreamsTestProject.Scripts.Core.ResourcesSystem
 
             return result;
         }
+
+        public Sprite LoadSprite<T>(T item, bool isPartOfAtlas = false) where T : Enum
+        {
+            if (isPartOfAtlas)
+            {
+                var spriteArray = LoadAtlas(item);
+                return spriteArray.First(sprite => sprite.name.Equals(item.ToString()));
+            }
+            
+            return LoadAsset<Sprite, T>(item);
+        }
     }
 }

@@ -6,6 +6,6 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.World
 {
     public class WorldPD : IPersistantData
     {
-        public List<BuildingPD> BuildingPDs { get; }
+        public List<BuildingPD> BuildingPDs { get; } = new();
     }
 }

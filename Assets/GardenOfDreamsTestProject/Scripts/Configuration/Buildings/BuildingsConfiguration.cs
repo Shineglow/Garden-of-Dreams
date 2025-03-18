@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace GardenOfDreamsTestProject.Scripts.Configuration.Buildings
 {
-    public class BuildingsConfiguration : AbstractConfiguration<EBuildings, IBuildingInfo>
+    public class BuildingsConfiguration : AbstractConfiguration<EBuildings, IBuildingConfigurationData>
     {
-        protected override Dictionary<EBuildings, IBuildingInfo> _typeToData { get; }  = new()
+        protected override Dictionary<EBuildings, IBuildingConfigurationData> _typeToData { get; }  = new()
         {
             {
                 EBuildings.Red, new BuildingConfigurationData()
