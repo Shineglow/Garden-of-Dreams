@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GardenOfDreamsTestProject.Scripts.Core.Serialization.Persistant;
 using GardenOfDreamsTestProject.Scripts.Serialization;
 
@@ -8,6 +9,6 @@ namespace GardenOfDreamsTestProject.Scripts.Core.Serialization
         void Save(string fileName);
         void Load(string fileName);
         void SetRootObject(ISerializeable<T> rootObject);
-        string[] GetAllSaves();
+        IEnumerable<string> GetAllSaves();
     }
 }

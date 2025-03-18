@@ -1,4 +1,4 @@
-namespace GardenOfDreamsTestProject.Scripts.Core
+namespace GardenOfDreamsTestProject.Scripts.Core.Constants
 {
     public class ScenesNames
     {

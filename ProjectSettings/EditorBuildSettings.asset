@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/GardenOfDreamsTestProject/Scenes/BootScene.unity
+    path: Assets/GardenOfDreamsTestProject/Scenes/BootstrapScene.unity
     guid: ebb49738d21a9c348828f5dbda3d9c5f
+  - enabled: 1
+    path: Assets/GardenOfDreamsTestProject/Scenes/MainScene.unity
+    guid: d36d15808d4b950488058a571a5006e9
   m_configObjects: {}

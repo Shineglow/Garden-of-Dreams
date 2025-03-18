@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using GardenOfDreamsTestProject.Scripts.Core;
+using GardenOfDreamsTestProject.Scripts.Core.Constants;
 using GardenOfDreamsTestProject.Scripts.Gameplay.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,11 +14,15 @@ namespace GardenOfDreamsTestProject.Scripts
 
             CompositionRoot.SaveSystem.SetRootObject(new WorldEntity(CompositionRoot.GridSystem));
             CompositionRoot.SaveSystem.Save("save01");
-            
-            var saves = CompositionRoot.SaveSystem.GetAllSaves();
-            
+
             await LoadGameDataAsync();
-        
+
+            foreach (var file in CompositionRoot.SaveSystem.GetAllSaves())
+            {
+                Debug.Log(file);
+            }
+            
+
             Debug.Log("Bootstrapper: Загрузка основной сцены...");
             SceneManager.LoadScene(ScenesNames.Main);
         }

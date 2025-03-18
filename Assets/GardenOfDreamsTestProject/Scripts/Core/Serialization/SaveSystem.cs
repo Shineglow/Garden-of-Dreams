@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using GardenOfDreamsTestProject.Scripts.Core.Serialization.Persistant;
 using GardenOfDreamsTestProject.Scripts.Serialization;
 using Newtonsoft.Json;
@@ -8,24 +10,29 @@ namespace GardenOfDreamsTestProject.Scripts.Core.Serialization
 {
     public class SaveSystem<T> : ISaveSystem<T> where T : IPersistantData
     {
-        private static readonly string SavesPath = Path.Combine(Application.persistentDataPath, "saves");
+        private static readonly string SavesPath = $"{Application.persistentDataPath}/saves";
         private static readonly string SaveExtension = ".save";
         private ISerializeable<T> _rootObject;
         
-        private string GetFullSavePath(string fileName) => Path.Combine(SavesPath,fileName) + ".save";
+        private string GetFullSavePath(string fileName) => $"{SavesPath}/{fileName}.save";
 
         public void SetRootObject(ISerializeable<T> rootObject)
         {
             _rootObject = rootObject;
         }
 
-        public string[] GetAllSaves()
+        public IEnumerable<string> GetAllSaves()
         {
-            return !Directory.Exists(SavesPath) ? null : Directory.GetFiles(SavesPath, $"*{SaveExtension}");
+            if (!Directory.Exists(SavesPath))
+                return null;
+
+            return Directory.GetFiles(SavesPath, $"*{SaveExtension}").Select(i => i.Split('/').Last());
         }
 
         public void Save(string fileName)
         {
+            if (!Directory.Exists(SavesPath))
+                Directory.CreateDirectory(SavesPath);
             File.WriteAllText(GetFullSavePath(fileName), 
                 JsonConvert.SerializeObject(_rootObject.GetSaveData()));
         }
