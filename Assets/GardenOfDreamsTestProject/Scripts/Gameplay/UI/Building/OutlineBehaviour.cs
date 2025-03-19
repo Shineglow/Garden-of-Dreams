@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
+namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
 {
     public class OutlineBehaviour : MonoBehaviour
     {
-        public void MoveToSelected(GameObject go)
+        public void MoveToSelected(RectTransform go)
         {
             transform.position = go.transform.position;
         }

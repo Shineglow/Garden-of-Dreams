@@ -8,6 +8,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
         Vector2Int GridSize { get; }
 
         bool TryPlaceOnGrid(IGridViewObject gridViewObject);
-        bool IsCellFilled(Vector2 position);
+        bool IsCellFilled(Vector2Int position);
+        Vector2Int WorldToGridPosition(Vector2 pos);
     }
 }

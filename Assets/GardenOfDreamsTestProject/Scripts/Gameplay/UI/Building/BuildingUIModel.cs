@@ -8,10 +8,10 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
 {
     public class BuildingUIModel : IBuildingUIModel
     {
-        public TemplateReactiveProperty<EBuildings> SelectedBuilding { get; set; }
+        public TemplateReactiveProperty<EBuildings> SelectedBuilding { get; set; } = new(default);
         public IReadOnlyCollection<EBuildings> AllBuildingsAvailableToSelect => _buildingsSet;
 
-        private HashSet<EBuildings> _buildingsSet = new ();
+        private readonly HashSet<EBuildings> _buildingsSet = new();
 
         public event Action<EBuildings> BuildingAdd;
 

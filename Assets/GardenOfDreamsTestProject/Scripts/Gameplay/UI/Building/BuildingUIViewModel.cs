@@ -28,7 +28,6 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
             _model = model;
             
             List<(EBuildings buildingType, Sprite sprite)> buildingUIViewInitialData = new ();
-            int index = 0;
             foreach (EBuildings value in Enum.GetValues(typeof(EBuildings)))
             {
                 (EBuildings buildingType, Sprite sprite) data;

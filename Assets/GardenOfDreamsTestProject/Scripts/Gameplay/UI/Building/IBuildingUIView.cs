@@ -13,5 +13,6 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
         event Action DestroyButtonPressed;
         void Initialize(List<(EBuildings buildingType, Sprite sprite)> buildingsInfo, int firstSelected);
         void SetSelectedBuilding(EBuildings building);
+        void ResetTransformParameters();
     }
 }

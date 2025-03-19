@@ -5,14 +5,14 @@ using GardenOfDreamsTestProject.Scripts.Serialization;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.World
 {
-    public class WorldEntity : ISerializeable<WorldPD>
+    public class WorldModel : ISerializeable<WorldPD>
     {
         private IGridSystem _gridSystem;
         private List<BuildingModel> _buildings;
 
         private WorldPD _cachedPD;
 
-        public WorldEntity(IGridSystem gridSystem)
+        public WorldModel(IGridSystem gridSystem)
         {
             _gridSystem = gridSystem;
             _buildings = new();
