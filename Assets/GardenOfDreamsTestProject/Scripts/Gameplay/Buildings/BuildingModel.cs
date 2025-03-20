@@ -1,24 +1,26 @@
 using System.Collections.Generic;
 using GardenOfDreamsTestProject.Scripts.Configuration.Buildings;
-using GardenOfDreamsTestProject.Scripts.Serialization;
+using GardenOfDreamsTestProject.Scripts.Core.Reactive;
 using UnityEngine;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
 {
-    public class BuildingModel : ISerializeable<BuildingPD>
+    public class BuildingModel : IBuildingModel
     {
         public EBuildings BuildingType { get; private set; }
-        public Vector2 WorldPosition { get; private set; }
-        public string Name { get; set; }
-        public (EBuildingsSprites sprite, bool partOfAtlas) SpriteInfo { get; set; }
+        public Vector2Int GridPosition { get; private set; }
         public IReadOnlyList<IReadOnlyList<bool>> CellsToPlace { get; set; }
-        public (bool automatic, Vector2 anchorPosition) LocalCellAnchorPosition { get; set; }
+        public Vector2Int LocalCellAnchorPosition { get; set; }
+        
+        public BoolReactiveProperty IsNeedToPlace { get; } = new BoolReactiveProperty(false, true);
+        public BoolReactiveProperty IsNeedToDestroy { get; } = new BoolReactiveProperty(false, true);
 
         private BuildingPD _cachedPD;
         
-        public BuildingModel(BuildingConfigurationData config)
+        public BuildingModel(IBuildingConfigurationData config)
         {
-            Name = config.Name;
+            BuildingType = config.BuildingType;
+            GridPosition = Vector2Int.zero;
         }
 
         public BuildingPD GetSaveData()
@@ -26,7 +28,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
             _cachedPD ??= new BuildingPD();
             
             _cachedPD.BuildingType = BuildingType;
-            _cachedPD.WorldPosition = WorldPosition;
+            _cachedPD.GridPosition = GridPosition;
 
             return _cachedPD;
         }
@@ -35,7 +37,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
         {
             _cachedPD = data;
             BuildingType = _cachedPD.BuildingType;
-            WorldPosition = _cachedPD.WorldPosition;
+            GridPosition = _cachedPD.GridPosition;
         }
     }
 }

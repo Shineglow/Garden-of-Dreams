@@ -6,7 +6,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
     {
         public void MoveToSelected(RectTransform go)
         {
-            transform.position = go.transform.position;
+            transform.position = go.position;
         }
     }
 }

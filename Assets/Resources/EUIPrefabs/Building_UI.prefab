@@ -1011,20 +1011,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7172547221890719102}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3876982764883836017}
-        m_TargetAssemblyTypeName: GardenOfDreamsTestProject.Scripts.Gameplay.UI.OutlineBehaviour,
-          Gameplay
-        m_MethodName: MoveToSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6757128281651109665}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6939268053381632172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,20 +1132,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7266595937268092897}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3876982764883836017}
-        m_TargetAssemblyTypeName: GardenOfDreamsTestProject.Scripts.Gameplay.UI.OutlineBehaviour,
-          Gameplay
-        m_MethodName: MoveToSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6939268053381632172}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7244868550539689892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,17 +1496,4 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7309313904425101441}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3876982764883836017}
-        m_TargetAssemblyTypeName: GardenOfDreamsTestProject.Scripts.Gameplay.UI.OutlineBehaviour,
-          Gameplay
-        m_MethodName: MoveToSelected
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 9223371602019159810}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

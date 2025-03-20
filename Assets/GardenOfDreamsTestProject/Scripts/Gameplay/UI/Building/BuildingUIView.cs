@@ -24,6 +24,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
         public void SetSelectedBuilding(EBuildings building)
         {
             var button = _buttonToAssociatedData.First(kvp => kvp.Value.buildingType == building).Key;
+            outline.MoveToSelected(_buttonToAssociatedData[button].rectTransform);
             OnBuildingButtonClicked(button);
         }
 
@@ -56,16 +57,17 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
             for (var i = 0; i < buildingsInfo.Count; i++)
             {
                 _buttonToAssociatedData.Add(buildingsButtons[i], (buildingsInfo[i].buildingType, buildingsButtons[i].GetComponent<RectTransform>()));
-                buildingsButtons[i].GetComponentsInChildren<Image>()[1].sprite =buildingsInfo[i].sprite;
+                buildingsButtons[i].GetComponentsInChildren<Image>()[1].sprite = buildingsInfo[i].sprite;
             }
 
-            outline.MoveToSelected(_buttonToAssociatedData[buildingsButtons[firstSelected]].rectTransform);
+            var a = buildingsButtons[firstSelected];
+            var b = _buttonToAssociatedData[a].rectTransform;
+            outline.MoveToSelected(b);
         }
 
         private void OnBuildingButtonClicked(Button buildingsButton)
         {
             var buttonAssociatedData = _buttonToAssociatedData[buildingsButton];
-            outline.MoveToSelected(buttonAssociatedData.rectTransform);
             BuildingSelected?.Invoke(buttonAssociatedData.buildingType);
         }
     }

@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using GardenOfDreamsTestProject.Scripts.Configuration.Buildings;
-using GardenOfDreamsTestProject.Scripts.Core.ResourcesSystem;
 using UnityEngine;
 
-namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
+namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
 {
     public interface IBuildingUIView
     {

@@ -7,7 +7,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
     public class BuildingPD : IPersistantData
     {
         public EBuildings BuildingType;
-        public Vector2 WorldPosition;
+        public Vector2Int GridPosition;
         
     }
 }

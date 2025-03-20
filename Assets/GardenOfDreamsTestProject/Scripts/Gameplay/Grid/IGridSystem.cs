@@ -1,3 +1,5 @@
+using System;
+using GardenOfDreamsTestProject.Scripts.Configuration.Grid;
 using UnityEngine;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
@@ -10,5 +12,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
         bool TryPlaceOnGrid(IGridViewObject gridViewObject);
         bool IsCellFilled(Vector2Int position);
         Vector2Int WorldToGridPosition(Vector2 pos);
+        event Action PointerMoveUnderGrid;
+        void Initialize(IGridConfiguration gridConfiguration, IGridView gridView);
     }
 }

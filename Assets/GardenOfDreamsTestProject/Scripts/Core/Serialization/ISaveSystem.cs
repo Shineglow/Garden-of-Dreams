@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using GardenOfDreamsTestProject.Scripts.Core.Serialization.Persistant;
-using GardenOfDreamsTestProject.Scripts.Serialization;
 
 namespace GardenOfDreamsTestProject.Scripts.Core.Serialization
 {

@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using GardenOfDreamsTestProject.Scripts.Gameplay.Grid;
 using GardenOfDreamsTestProject.Scripts.Gameplay.UI;
 using GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building;
@@ -8,29 +10,29 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.ScenesStarters
 {
     public class MainSceneStarter : MonoBehaviour
     {
-        private GridSystem _gridSystem;
+        private IGridSystem _gridSystem;
         private BuildingUIModel _buildingUIModel;
         private BuildingGameplaySystem _buildingGameplaySystem;
         private GameplayUISystem _gameplayUISystem;
 
-        private void Awake()
+        private async void Awake()
         {
             var resourcesLoader = CompositionRoot.GetResourcesLoader();
             var allConfigurations = CompositionRoot.GetAllConfigurations();
 
             _gameplayUISystem = CompositionRoot.GetGameplayUISystem();
-            
-            var gridView = resourcesLoader.CreatePrefabInstance<GridView, EGameplayPrefabs>(EGameplayPrefabs.GridView);
-            _gridSystem = new GridSystem();
-            _gridSystem.Initialize(allConfigurations.GetGridConfiguration(), gridView);
+
+            _gridSystem = CompositionRoot.GetGridSystem();
 
             var buildingViewInstance = resourcesLoader.CreatePrefabInstance<BuildingUIView, EUIPrefabs>(EUIPrefabs.Building_UI);
             _buildingUIModel = new BuildingUIModel();
             var buildingUIViewModel = new BuildingUIViewModel(allConfigurations.GetBuildingsConfiguration(), resourcesLoader);
-            buildingUIViewModel.Initialize(buildingViewInstance, _buildingUIModel);
-
+            await UniTask.Yield();
             var rectTransform = buildingViewInstance.GetComponent<RectTransform>();
             _gameplayUISystem.SetParentOfLayer(rectTransform, EGameplayUILayers.Gameplay);
+            buildingViewInstance.ResetTransformParameters();
+            await UniTask.Yield();
+            buildingUIViewModel.Initialize(buildingViewInstance, _buildingUIModel);
 
             _buildingGameplaySystem = new BuildingGameplaySystem(_gridSystem, _buildingUIModel);
         }

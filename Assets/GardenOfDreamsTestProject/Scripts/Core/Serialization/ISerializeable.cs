@@ -1,6 +1,6 @@
 using GardenOfDreamsTestProject.Scripts.Core.Serialization.Persistant;
 
-namespace GardenOfDreamsTestProject.Scripts.Serialization
+namespace GardenOfDreamsTestProject.Scripts.Core.Serialization
 {
     public interface ISerializeable<T> where T : IPersistantData
     {

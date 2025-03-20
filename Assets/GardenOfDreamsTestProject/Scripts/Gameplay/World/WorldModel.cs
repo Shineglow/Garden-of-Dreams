@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using GardenOfDreamsTestProject.Scripts.Core.Serialization;
 using GardenOfDreamsTestProject.Scripts.Gameplay.Buildings;
 using GardenOfDreamsTestProject.Scripts.Gameplay.Grid;
-using GardenOfDreamsTestProject.Scripts.Serialization;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.World
 {

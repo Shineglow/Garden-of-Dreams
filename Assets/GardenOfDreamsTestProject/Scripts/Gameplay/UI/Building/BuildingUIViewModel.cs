@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using GardenOfDreamsTestProject.Scripts.Configuration;
 using GardenOfDreamsTestProject.Scripts.Configuration.Buildings;
 using GardenOfDreamsTestProject.Scripts.Core.ResourcesSystem;
-using GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building;
+using GardenOfDreamsTestProject.Scripts.Gameplay.Grid;
 using UnityEngine;
 
-namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
+namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
 {
     public class BuildingUIViewModel : IBuildingUIViewModel
     {
@@ -15,6 +15,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
 
         private IBuildingUIView _buildingUIView;
         private IBuildingUIModel _model;
+        private IGridSystem _gridSystem;
 
         public BuildingUIViewModel(IConfiguration<EBuildings, IBuildingConfigurationData> buildingsConfiguration, IResourcesLoader resourcesLoader)
         {
@@ -41,6 +42,22 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI
             buildingUIView.Initialize(buildingUIViewInitialData, FIRST_SELECTED);
             _model.SelectedBuilding.Value = buildingUIViewInitialData[FIRST_SELECTED].buildingType;
             _model.SelectedBuilding.ValueChanged += OnSelectedBuildingChanged;
+            
+            buildingUIView.BuildButtonPressed += OnBuildButtonPressed;
+            buildingUIView.DestroyButtonPressed += OnDestroyButtonPressed;
+        }
+
+        private void OnDestroyButtonPressed()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnBuildButtonPressed()
+        {
+            _gridSystem = CompositionRoot.GetGridSystem();
+            var gridViewObject = CompositionRoot.GetResourcesLoader()
+                .CreatePrefabInstance<IGridViewObject, EGameplayPrefabs>(EGameplayPrefabs.BuildingPrefab);
+            // _gridSystem.TryPlaceOnGrid(BuildingPrefab)
         }
 
         private void OnSelectedBuildingChanged(EBuildings oldBuilding, EBuildings newBuilding)
