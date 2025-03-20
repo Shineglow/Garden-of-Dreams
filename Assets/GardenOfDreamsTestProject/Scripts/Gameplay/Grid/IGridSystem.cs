@@ -1,5 +1,6 @@
 using System;
 using GardenOfDreamsTestProject.Scripts.Configuration.Grid;
+using GardenOfDreamsTestProject.Scripts.Gameplay.Buildings;
 using UnityEngine;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
@@ -8,11 +9,14 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
     {
         float UnitsPerCell { get; }
         Vector2Int GridSize { get; }
+        event Action PointerMoveUnderGrid;
 
-        bool TryPlaceOnGrid(IGridViewObject gridViewObject);
+        void Initialize(IGridConfiguration gridConfiguration, IGridView gridView);
+
+        bool TryPlaceBuildingOnGrid(IBuildingModel model, IGridViewObject gridViewObject);
+        bool TryDestroyBuilding(IBuildingModel model);
         bool IsCellFilled(Vector2Int position);
         Vector2Int WorldToGridPosition(Vector2 pos);
-        event Action PointerMoveUnderGrid;
-        void Initialize(IGridConfiguration gridConfiguration, IGridView gridView);
+        Vector3 MousePositionToWorldPosition(Vector2 pos);
     }
 }

@@ -15,7 +15,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
             get => transform.position;
             set => transform.position = value;
         }
-        
+
         public bool CanReceiveEvents { get; set; }
         public event Action PointerDown;
 

@@ -9,10 +9,12 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
     public interface IBuildingModel : ISerializeable<BuildingPD>
     {
         EBuildings BuildingType { get; }
-        Vector2Int GridPosition { get; }
-        IReadOnlyList<IReadOnlyList<bool>> CellsToPlace { get; set; }
-        Vector2Int LocalCellAnchorPosition { get; set; }
+        TemplateReactiveProperty<Vector2Int> GridPosition { get; }
+        IReadOnlyList<IReadOnlyList<bool>> CellsToPlace { get; }
+        Vector2Int LocalCellAnchorPosition { get; }
+        Vector2Int BoundSize { get; }
         BoolReactiveProperty IsNeedToPlace { get; }
+        BoolReactiveProperty IsShadowObject { get; }
         BoolReactiveProperty IsNeedToDestroy { get; }
     }
 }

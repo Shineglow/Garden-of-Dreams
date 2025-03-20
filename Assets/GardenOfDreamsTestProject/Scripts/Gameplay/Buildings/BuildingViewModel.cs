@@ -1,5 +1,6 @@
 using GardenOfDreamsTestProject.Scripts.Core.Input;
 using GardenOfDreamsTestProject.Scripts.Gameplay.Grid;
+using GardenOfDreamsTestProject.Scripts.Gameplay.UI;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
 {
@@ -16,26 +17,39 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
             _view = view;
             _inputSystem = CompositionRoot.GetInputSystem();
             _gridSystem = CompositionRoot.GetGridSystem();
-
+            
             _view.PointerDown += OnViewPointerDown;
+            
             _model.IsNeedToDestroy.ValueChanged += TryDestroy;
+            _model.IsShadowObject.ValueChanged += OnShadowModeChanged;
             _model.IsNeedToPlace.ValueChanged += TryPlace;
         }
 
-        private void TryPlace(bool arg1, bool arg2)
+        private void OnShadowModeChanged(bool oldValue, bool newValue)
         {
             throw new System.NotImplementedException();
         }
 
-        private void TryDestroy(bool arg1, bool arg2)
+        private void TryPlace(bool oldValue, bool newValue)
         {
-            throw new System.NotImplementedException();
+            if (_gridSystem.TryPlaceBuildingOnGrid(_model, _view))
+            {
+                
+            }
+        }
+
+        private void TryDestroy(bool oldValue, bool newValue)
+        {
+            if (_gridSystem.TryDestroyBuilding(_model))
+            {
+                
+            }
         }
 
         private void OnViewPointerDown()
         {
             var mousePosition = _inputSystem.GetMousePosition();
-            var _gridSystem.Mouse(mousePosition);
+            // var _gridSystem.Mouse(mousePosition);
             
         }
     }

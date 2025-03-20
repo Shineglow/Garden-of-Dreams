@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using GardenOfDreamsTestProject.Scripts.Configuration.Grid;
 using GardenOfDreamsTestProject.Scripts.Core.Camera;
-using GardenOfDreamsTestProject.Scripts.Core.Extensions;
 using GardenOfDreamsTestProject.Scripts.Core.Serialization;
 using GardenOfDreamsTestProject.Scripts.Gameplay.Buildings;
 using UnityEngine;
@@ -11,7 +10,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
 {
     public class GridSystem : IGridSystem, ISerializeable<GridSystemPD>
     {
-        private List<IBuildingModel> _gridViewsOrdered;
+        private List<List<IBuildingModel>> _gridCells;
         private IGridView _gridView;
         private IGridConfiguration _gridConfiguration;
         private ICameraSystem _cameraSystem;
@@ -26,7 +25,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
             _gridConfiguration = gridConfiguration;
             GridSize = gridConfiguration.Size;
             UnitsPerCell = gridConfiguration.UnitsPerCell;
-            _gridViewsOrdered = new List<IBuildingModel>(10);
+            _gridCells = new List<List<IBuildingModel>>(gridConfiguration.Size.x * gridConfiguration.Size.y);
             _cameraSystem = CompositionRoot.GetCamera();
 
             _gridView = gridView;
@@ -39,35 +38,60 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
             PointerMoveUnderGrid?.Invoke();
         }
 
-        public bool TryPlaceOnGrid(IGridViewObject gridViewObject)
+        public bool TryPlaceBuildingOnGrid(IBuildingModel model, IGridViewObject gridViewObject)
         {
-            throw new System.NotImplementedException();
-        }
+            Vector2Int leftBottom = model.GridPosition.Value - model.LocalCellAnchorPosition;
+            Vector2Int rightTop = leftBottom + model.BoundSize;
 
-        public bool IsCellFilled(Vector2Int position)
-        {
-            var result = FindGridViewObject(position);
-
-            return result != null;
-        }
-
-        private IBuildingModel FindGridViewObject(Vector2Int position)
-        {
-            return _gridViewsOrdered.BinarySearch(item =>
+            if (leftBottom.x < 0 || rightTop.x >= GridSize.x || leftBottom.y < 0 || rightTop.y >= GridSize.y)
+                return false;
+            
+            for (int x = leftBottom.x; x < rightTop.x; x++)
             {
-                if (position.x != item.GridPosition.x)
+                for (int y = leftBottom.y; y < rightTop.y; y++)
                 {
-                    return (int)Mathf.Sign(position.x - item.GridPosition.x);
+                    if (!model.CellsToPlace[x][y]) continue;
+                    if (_gridCells[x][y] != null)
+                        return false;
                 }
-                if (position.y != item.GridPosition.y)
+            }
+            
+            for (int x = leftBottom.x; x < rightTop.x; x++)
+            {
+                for (int y = leftBottom.y; y < rightTop.y; y++)
                 {
-                    return (int)Mathf.Sign(position.y - item.GridPosition.y);
+                    if (!model.CellsToPlace[x][y]) continue;
+                    _gridCells[x][y] = model;
                 }
+            }
 
-                return 0;
-            }, out _);
+            return true;
         }
-        
+
+        public bool TryDestroyBuilding(IBuildingModel model)
+        {
+            Vector2Int leftBottom = model.GridPosition.Value - model.LocalCellAnchorPosition;
+            Vector2Int rightTop = leftBottom + model.BoundSize;
+
+            if (leftBottom.x < 0 || rightTop.x >= GridSize.x || leftBottom.y < 0 || rightTop.y >= GridSize.y)
+                return false;
+            
+            for (int x = leftBottom.x; x < rightTop.x; x++)
+            {
+                for (int y = leftBottom.y; y < rightTop.y; y++)
+                {
+                    if (!model.CellsToPlace[x][y]) continue;
+                    _gridCells[x][y] = null;
+                }
+            }
+
+            return true;
+        }
+
+        public bool IsCellFilled(Vector2Int position) => _gridCells[position.x][position.y] != null;
+
+        #region PositionConvertationMethods
+
         public Vector2Int WorldToGridPosition(Vector2 pos)
         {
             var xf = pos.x / _gridConfiguration.UnitsPerCell;
@@ -101,6 +125,8 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
             var result = GridToWorldPosition(gridPos);
             return result;
         }
+
+        #endregion
 
         public GridSystemPD GetSaveData()
         {
