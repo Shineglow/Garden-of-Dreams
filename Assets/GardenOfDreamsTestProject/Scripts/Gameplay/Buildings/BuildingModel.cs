@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using GardenOfDreamsTestProject.Scripts.Configuration.Buildings;
 using GardenOfDreamsTestProject.Scripts.Core.Reactive;
 using UnityEngine;
@@ -16,6 +15,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
 
         public BoolReactiveProperty IsNeedToPlace { get; } = new(false, true);
         public BoolReactiveProperty IsShadowObject { get; } = new(false, false);
+        public TemplateReactiveProperty<Color> ShadowColor { get; } = new(Color.white);
         public BoolReactiveProperty IsNeedToDestroy { get; } = new(false, true);
 
         private BuildingPD _cachedPD;

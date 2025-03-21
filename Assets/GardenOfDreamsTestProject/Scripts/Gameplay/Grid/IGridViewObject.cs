@@ -6,5 +6,6 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
     {
         string Name { get; }
         Vector3 Position { get; set; }
+        bool IsShadowModeEnabled { get; set; }
     }
 }

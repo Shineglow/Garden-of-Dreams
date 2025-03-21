@@ -26,7 +26,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
             GridSize = gridConfiguration.Size;
             UnitsPerCell = gridConfiguration.UnitsPerCell;
             _gridCells = new List<List<IBuildingModel>>(gridConfiguration.Size.x * gridConfiguration.Size.y);
-            _cameraSystem = CompositionRoot.GetCamera();
+            _cameraSystem = CompositionRoot.GetCameraSystem();
 
             _gridView = gridView;
             gridView.Initialize(gridConfiguration.Size, gridConfiguration.UnitsPerCell);

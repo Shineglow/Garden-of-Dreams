@@ -9,6 +9,22 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
     {
         public string Name => name;
         [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Material normalMaterial;
+        [SerializeField] private Material shadowMaterial;
+        
+
+        private bool _isShadowModeEnabled;
+        public bool IsShadowModeEnabled
+        {
+            get => _isShadowModeEnabled;
+            set
+            {
+                if(_isShadowModeEnabled == value)
+                    return;
+                _isShadowModeEnabled = value;
+                _spriteRenderer.material = value ? shadowMaterial : normalMaterial;
+            }
+        }
 
         public Vector3 Position
         {

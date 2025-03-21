@@ -10,23 +10,19 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
 {
     public class BuildingUIViewModel : IBuildingUIViewModel
     {
-        private readonly IConfiguration<EBuildings, IBuildingConfigurationData> _buildingsConfiguration;
-        private readonly IResourcesLoader _resourcesLoader;
+        private IConfiguration<EBuildings, IBuildingConfigurationData> _buildingsConfiguration;
+        private IResourcesLoader _resourcesLoader;
 
         private IBuildingUIView _buildingUIView;
-        private IBuildingUIModel _model;
+        private BuildingUIModel _model;
         private IGridSystem _gridSystem;
 
-        public BuildingUIViewModel(IConfiguration<EBuildings, IBuildingConfigurationData> buildingsConfiguration, IResourcesLoader resourcesLoader)
+        public IBuildingUIModel Initialize(IBuildingUIView buildingUIView)
         {
-            _buildingsConfiguration = buildingsConfiguration;
-            _resourcesLoader = resourcesLoader;
-        }
-
-        public void Initialize(IBuildingUIView buildingUIView, IBuildingUIModel model)
-        {
+            _buildingsConfiguration = CompositionRoot.GetAllConfigurations().GetBuildingsConfiguration();
+            _resourcesLoader = CompositionRoot.GetResourcesLoader();
             _buildingUIView = buildingUIView;
-            _model = model;
+            _model = new BuildingUIModel();
             
             List<(EBuildings buildingType, Sprite sprite)> buildingUIViewInitialData = new ();
             foreach (EBuildings value in Enum.GetValues(typeof(EBuildings)))
@@ -40,24 +36,23 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.UI.Building
             
             const int FIRST_SELECTED = 1;
             buildingUIView.Initialize(buildingUIViewInitialData, FIRST_SELECTED);
-            _model.SelectedBuilding.Value = buildingUIViewInitialData[FIRST_SELECTED].buildingType;
-            _model.SelectedBuilding.ValueChanged += OnSelectedBuildingChanged;
+            _model.SelectedBuildingEditable.Value = buildingUIViewInitialData[FIRST_SELECTED].buildingType;
+            _model.SelectedBuildingEditable.ValueChanged += OnSelectedBuildingChanged;
             
             buildingUIView.BuildButtonPressed += OnBuildButtonPressed;
             buildingUIView.DestroyButtonPressed += OnDestroyButtonPressed;
+
+            return _model;
         }
 
         private void OnDestroyButtonPressed()
         {
-            throw new NotImplementedException();
+            _model.DestroyPressedEditable.Value = true;
         }
 
         private void OnBuildButtonPressed()
         {
-            _gridSystem = CompositionRoot.GetGridSystem();
-            var gridViewObject = CompositionRoot.GetResourcesLoader()
-                .CreatePrefabInstance<IGridViewObject, EGameplayPrefabs>(EGameplayPrefabs.BuildingPrefab);
-            // _gridSystem.TryPlaceOnGrid(BuildingPrefab)
+            _model.BuildPressedEditable.Value = true;
         }
 
         private void OnSelectedBuildingChanged(EBuildings oldBuilding, EBuildings newBuilding)

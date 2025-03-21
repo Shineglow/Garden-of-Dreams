@@ -1,5 +1,4 @@
 using System;
-using GardenOfDreamsTestProject.Scripts.Configuration.Grid;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

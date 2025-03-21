@@ -35,6 +35,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LeftMouseDown"",
+                    ""type"": ""Value"",
+                    ""id"": ""c65d5620-160c-4618-95d3-59fa921f9843"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e653ce68-d7a8-4d5c-bfbd-66791a6da0f3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftMouseDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -573,6 +593,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         // Default
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_MousePosition = m_Default.FindAction("MousePosition", throwIfNotFound: true);
+        m_Default_LeftMouseDown = m_Default.FindAction("LeftMouseDown", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -647,11 +668,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Default;
     private List<IDefaultActions> m_DefaultActionsCallbackInterfaces = new List<IDefaultActions>();
     private readonly InputAction m_Default_MousePosition;
+    private readonly InputAction m_Default_LeftMouseDown;
     public struct DefaultActions
     {
         private @GameInput m_Wrapper;
         public DefaultActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePosition => m_Wrapper.m_Default_MousePosition;
+        public InputAction @LeftMouseDown => m_Wrapper.m_Default_LeftMouseDown;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -664,6 +687,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @LeftMouseDown.started += instance.OnLeftMouseDown;
+            @LeftMouseDown.performed += instance.OnLeftMouseDown;
+            @LeftMouseDown.canceled += instance.OnLeftMouseDown;
         }
 
         private void UnregisterCallbacks(IDefaultActions instance)
@@ -671,6 +697,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @LeftMouseDown.started -= instance.OnLeftMouseDown;
+            @LeftMouseDown.performed -= instance.OnLeftMouseDown;
+            @LeftMouseDown.canceled -= instance.OnLeftMouseDown;
         }
 
         public void RemoveCallbacks(IDefaultActions instance)
@@ -809,6 +838,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     public interface IDefaultActions
     {
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnLeftMouseDown(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

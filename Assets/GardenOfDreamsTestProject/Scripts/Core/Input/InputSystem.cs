@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GardenOfDreamsTestProject.Scripts.Core.Input
 {
@@ -7,6 +9,8 @@ namespace GardenOfDreamsTestProject.Scripts.Core.Input
         private GameInput _gameInput;
 
         private bool _isActive;
+        
+        public event Action LeftMouseDown;
 
         public bool IsActive
         {
@@ -34,15 +38,20 @@ namespace GardenOfDreamsTestProject.Scripts.Core.Input
         }
 
         public Vector2 GetMousePosition() => _gameInput.Default.MousePosition.ReadValue<Vector2>();
+        
+        private void OnLeftMouseDown(InputAction.CallbackContext obj)
+        {
+            LeftMouseDown?.Invoke();
+        }
 
         private void OnEnable()
         {
-            // 
+            _gameInput.Default.LeftMouseDown.performed += OnLeftMouseDown;
         }
-        
+
         private void OnDisable()
         {
-            //
+            _gameInput.Default.LeftMouseDown.performed -= OnLeftMouseDown;
         }
     }
 }

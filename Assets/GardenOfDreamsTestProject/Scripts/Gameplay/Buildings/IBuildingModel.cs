@@ -15,6 +15,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
         Vector2Int BoundSize { get; }
         BoolReactiveProperty IsNeedToPlace { get; }
         BoolReactiveProperty IsShadowObject { get; }
+        TemplateReactiveProperty<Color> ShadowColor { get; }
         BoolReactiveProperty IsNeedToDestroy { get; }
     }
 }

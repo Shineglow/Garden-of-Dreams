@@ -60,7 +60,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay
             return AllFactories ??= new AllFactories();
         }
 
-        public static ICameraSystem GetCamera()
+        public static ICameraSystem GetCameraSystem()
         {
             return _cameraSystemSystem ??= GetResourcesLoader()
                 .CreatePrefabInstance<CameraSystem, EGeneralPrefabs>(EGeneralPrefabs.MainCamera);

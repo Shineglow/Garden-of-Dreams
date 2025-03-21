@@ -1,6 +1,5 @@
 using GardenOfDreamsTestProject.Scripts.Core.Input;
 using GardenOfDreamsTestProject.Scripts.Gameplay.Grid;
-using GardenOfDreamsTestProject.Scripts.Gameplay.UI;
 
 namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
 {
@@ -27,7 +26,7 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
 
         private void OnShadowModeChanged(bool oldValue, bool newValue)
         {
-            throw new System.NotImplementedException();
+            _view.IsShadowModeEnabled = newValue;
         }
 
         private void TryPlace(bool oldValue, bool newValue)
