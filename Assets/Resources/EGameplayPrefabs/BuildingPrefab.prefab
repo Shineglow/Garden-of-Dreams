@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5169390487125367184}
   - component: {fileID: 1504682631565261635}
   m_Layer: 0
-  m_Name: BuildingView
+  m_Name: BuildingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

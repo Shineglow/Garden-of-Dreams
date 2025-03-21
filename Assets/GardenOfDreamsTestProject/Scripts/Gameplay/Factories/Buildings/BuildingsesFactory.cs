@@ -19,6 +19,8 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Factories.Buildings
         public IBuildingModel GetBuilding(EBuildings building)
         {
             var buildingPrefabInstance = _resourcesLoader.CreatePrefabInstance<IBuildingView, EGameplayPrefabs>(EGameplayPrefabs.BuildingPrefab);
+            var spriteInfo = _buildingsConfiguration.GetData(building).SpriteInfo;
+            buildingPrefabInstance.SetView(_resourcesLoader.LoadSprite(spriteInfo.sprite, spriteInfo.isPartOfAtlas));
             var buildingModel = new BuildingModel(_buildingsConfiguration.GetData(building));
             _ = new BuildingViewModel(buildingModel, buildingPrefabInstance);
             return buildingModel;
