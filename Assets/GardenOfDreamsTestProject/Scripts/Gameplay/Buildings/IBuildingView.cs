@@ -9,5 +9,6 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
     {
         event Action PointerDown;
         void SetView(Sprite sprite);
+        void SetColor(Color shadowColorValue);
     }
 }

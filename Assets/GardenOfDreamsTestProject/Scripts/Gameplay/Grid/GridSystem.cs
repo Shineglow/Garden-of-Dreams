@@ -38,10 +38,17 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
             PointerMoveUnderGrid?.Invoke();
         }
 
-        public bool TryPlaceBuildingOnGrid(IBuildingModel model, IGridViewObject gridViewObject)
+        public bool IsPossibleToPlace(IBuildingModel model)
         {
             Vector2Int leftBottom = model.GridPosition.Value - model.LocalCellAnchorPosition;
             Vector2Int rightTop = leftBottom + model.BoundSize;
+            return IsPossibleToPlace(model, leftBottom, rightTop);
+        }
+        
+        public bool IsPossibleToPlace(IBuildingModel model, Vector2Int leftBottom, Vector2Int rightTop)
+        {
+            leftBottom = model.GridPosition.Value - model.LocalCellAnchorPosition;
+            rightTop = leftBottom + model.BoundSize;
 
             if (leftBottom.x < 0 || rightTop.x >= GridSize.x || leftBottom.y < 0 || rightTop.y >= GridSize.y)
                 return false;
@@ -55,6 +62,16 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
                         return false;
                 }
             }
+
+            return true;
+        }
+        
+        public bool TryPlaceBuildingOnGrid(IBuildingModel model)
+        {
+            Vector2Int leftBottom = model.GridPosition.Value - model.LocalCellAnchorPosition;
+            Vector2Int rightTop = leftBottom + model.BoundSize;
+            if (!IsPossibleToPlace(model, leftBottom, rightTop))
+                return false;
             
             for (int x = leftBottom.x; x < rightTop.x; x++)
             {

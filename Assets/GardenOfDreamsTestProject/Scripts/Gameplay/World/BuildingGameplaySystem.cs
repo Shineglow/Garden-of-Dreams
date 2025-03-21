@@ -39,10 +39,13 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.World
             _gridSystem.PointerMoveUnderGrid += OnPointerMoveUnderGrid;
             _inputSystem.LeftMouseDown += TryPlaceOnGrid;
             // создать здание с режимом тени,
+            // Тут плохая реализация, в идеале фабрика должна иметь пул объектов я не стал это реализовывать из-за ограниченного времени
             _actualModel = _buildingFactory.GetBuilding(_buildingUIModel.SelectedBuilding.Value);
             var screenCenterWorldPosition = _cameraSystem.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
             var gridPosition = _gridSystem.WorldToGridPosition(screenCenterWorldPosition);
             _actualModel.GridPosition.Value = gridPosition;
+            _actualModel.IsShadowObject.Value = true;
+            
             // проверить пересечения с сеткой и другими объектами,
             // подписатся на делегаты кликов по сетке и движения курсора над сеткой
             // при движении двигать, при клике попытаться поставить
@@ -51,12 +54,25 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.World
 
         private void TryPlaceOnGrid()
         {
-            throw new System.NotImplementedException();
+            if (_actualModel.IsShadowObject.Value && _actualModel.ShadowColor.Value == Color.green)
+            {
+                if (_gridSystem.TryPlaceBuildingOnGrid(_actualModel))
+                {
+                    _actualModel.IsShadowObject.Value = false;
+                }
+            }
         }
 
         private void OnPointerMoveUnderGrid()
         {
-            throw new System.NotImplementedException();
+            if (_gridSystem.IsPossibleToPlace(_actualModel))
+            {
+                _actualModel.ShadowColor.Value = Color.green; 
+            }
+            else
+            {
+                _actualModel.ShadowColor.Value = Color.red;
+            }
         }
     }
 }

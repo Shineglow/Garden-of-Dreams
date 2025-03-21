@@ -13,10 +13,11 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Grid
 
         void Initialize(IGridConfiguration gridConfiguration, IGridView gridView);
 
-        bool TryPlaceBuildingOnGrid(IBuildingModel model, IGridViewObject gridViewObject);
+        bool TryPlaceBuildingOnGrid(IBuildingModel model);
         bool TryDestroyBuilding(IBuildingModel model);
         bool IsCellFilled(Vector2Int position);
         Vector2Int WorldToGridPosition(Vector2 pos);
         Vector3 MousePositionToWorldPosition(Vector2 pos);
+        bool IsPossibleToPlace(IBuildingModel actualModel);
     }
 }

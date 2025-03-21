@@ -47,6 +47,11 @@ namespace GardenOfDreamsTestProject.Scripts.Gameplay.Buildings
             _spriteRenderer.sprite = sprite;
         }
 
+        public void SetColor(Color shadowColorValue)
+        {
+            _spriteRenderer.color = shadowColorValue;
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
             if(CanReceiveEvents)
